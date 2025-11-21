@@ -14,7 +14,7 @@ async def process_audio(file: UploadFile):
     audio_file.write(await file.read())
     audio_file.close()
 
-    # 1️⃣ Convert Audio to Text (STT) using Deepgram
+    # 1️⃣ Convert Audio → Text using Deepgram STT
     with open(audio_file.name, "rb") as f:
         dg_res = requests.post(
             "https://api.deepgram.com/v1/listen?model=nova-2",
@@ -25,7 +25,7 @@ async def process_audio(file: UploadFile):
     text = dg_res.json()["results"]["channels"][0]["alternatives"][0]["transcript"]
     print("User said:", text)
 
-    # 2️⃣ AI Response using DeepSeek
+    # 2️⃣ Text → AI response using DeepSeek
     res = requests.post(
         "https://api.siliconflow.cn/v1/chat/completions",
         headers={"Authorization": f"Bearer {DEEPSEEK_KEY}"},
