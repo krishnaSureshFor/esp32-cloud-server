@@ -1,6 +1,4 @@
 fastapi
 uvicorn
-faster-whisper
 requests
 python-multipart
-numpy
